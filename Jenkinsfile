@@ -10,7 +10,8 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh './PES'
+                //sh './PES1UG20CS150' correct
+                sh './PES' //incorrect
             }
         }
 
