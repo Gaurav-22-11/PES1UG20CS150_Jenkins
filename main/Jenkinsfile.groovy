@@ -1,35 +1,33 @@
-pipeline{
-    agent{
-        docker{
-            image 'node:14'
-        }
-    }
-    stages{
-        stage('Clone repository'){
-            steps{
-                git branch:'main',
-                url:'https://github.com/Gaurav-22-11/PES1UG20CS150_Jenkins.git'
+pipeline {
+    agent any
+    
+    stages {
+        stage('Build') {
+            steps {
+                sh 'g++ -o PES1UG20CS150-1 working.cpp'
             }
         }
-        stage('Install dependencies'){
-            steps{
-                sh 'npm install'
+        
+        stage('Test') {
+            steps {
+                sh './PES1UG20CS150-1'
             }
         }
-        stage('Build application'){
-            steps{
-                sh 'npm run build'
-            }
-        }
-        stage('Test application')
-        {
-            steps{
-                sh 'npm test'
+        
+        stage('Deploy') {
+            steps {
+                // Add deploy steps here
+                echo 'Deployed'
             }
         }
     }
-    post{
-        failure{
+    
+    post {
+        always {
+            echo 'Pipeline finished'
+        }
+        
+        failure {
             echo 'Pipeline failed'
         }
     }
